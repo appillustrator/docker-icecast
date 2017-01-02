@@ -4,9 +4,10 @@ MAINTAINER Manfred Touron "m@42.am"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get -qq -y update && \
-    apt-get -qq -y install icecast2 python-setuptools && \
-    apt-get clean
+RUN sh -c "echo deb http://download.opensuse.org/repositories/multimedia:/xiph/xUbuntu_14.04/ ./ >>/etc/apt/sources.list.d/xiph.list" && \
+    wget -qO - http://icecast.org/multimedia-obs.key | sudo apt-key add - && \
+    apt-get update && \
+    apt-get install -y icecast2
 
 RUN easy_install supervisor && \
     easy_install supervisor-stdout
